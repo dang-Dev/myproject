@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %} {% endblock %}</title>
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'css/dataTables.bootstrap5.min.css' %}" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  {% url 'change-password' as urlchangepassword %}
+  <header id="header" class="header fixed-top header-scrolled {% if request.path != urlchangepassword %}header-scrolled{% endif %}" >
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+        <span class="mc-title-sm mc-title-md mc-title-lg">FRS ADMINISTRATOR</span>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        {% if request.user.is_authenticated %}
+        <ul>
+          {% url 'reports' as urlreports %}
+          {% url 'profile' as urlprofile %}
+          {% url 'edit_profile' as urleditprofile %}
+          {% url 'admin-logbook' 'view' as urladminlogbook %}
+          <li><a class="nav-link {% if request.path == urlreports %}active{% endif %}" href="{% url 'reports' %}">Home</a></li>
+          <li><a class="nav-link {% if request.path == urlprofile or request.path == urleditprofile %}active{% endif %}" href="#">Students</a></li>
+          <li><a class="nav-link {% if request.path == urladminlogbook %}active{% endif %}" href="{% url 'admin-logbook' 'view' %}">Logbook Records</a></li>
+          <li><a class="nav-link " href="{% url 'admin-logout' %}">Log out</a></li>
+        </ul>
+        {% else %}
+        {% url 'admin' as urlhome %}
+        <ul>
+          <li><a class="nav-link {% if request.path == urlhome %}active{% endif %}" href="{% url 'admin' %}">Login</a></li>
+        </ul>
+        {% endif %}
+        <i class="bi bi-list mobile-nav-toggle"></i>
+
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+  {% block heroContent %}
+  
+  {% endblock %}
+  <main id="main">
+    {% block content %}
+
+    {% endblock %}
+  </main>
+  {% url 'reports' as urlreports %}
+  <footer id="footer" class="footer {% if request.path == urlreports %}fixed-bottom{% endif %}">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>UNITECH</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits mb-0">
+        Designed by UNITECH
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>

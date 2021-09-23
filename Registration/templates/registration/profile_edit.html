@@ -1,0 +1,342 @@
+{% extends "base_html.html" %}
+{% load static %}
+{% block title %}MC SYSTEM{% endblock %}
+
+{% block content %}
+<section class="breadcrumbs">
+    <div class="container">
+        <ol>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>Profile</li>
+        </ol>
+        <h2>Profile</h2>
+
+    </div>
+</section>
+<section id="blog" class="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{message}}
+                </div>
+                {% endfor %}
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-pills card-header-pills">
+                            <li class="nav-item">
+                                <a class="nav-link " href="{% url 'profile' %}">Info</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  active" href="{% url 'edit_profile' %}">Update Info</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <form name="imageForm" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Face Recognition System Data</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-sm-12 col-md-6 mb-4">
+                                                <div class="card">
+                                                    <div style="max-height: 250px; min-height: 250px; min-width: 100%; border: none;">
+                                                        {% if user_img.image1 %}
+                                                        <img id="myimage1" src="{{user_img.image1.url}}" alt="Image 1" class="card-img-top" height="250px">
+                                                        {% else %}
+                                                        <img id="myimage1" src="#" class="card-img-top" alt="No Picture Uploaded yet!" height="250px">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <input name="image1" id="id_image1" onchange="readURL1(this);" type="file" accept="image/*"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12 col-md-6 mb-4">
+                                                <div class="card">
+                                                    <div style="max-height: 250px; min-height: 250px; min-width: 100%; border: none;">
+                                                        {% if user_img.image2 %}
+                                                        <img id="myimage2" src="{{user_img.image2.url}}" alt="Image 2" class="card-img-top" height="250px">
+                                                        {% else %}
+                                                        <img id="myimage2" src="#" class="card-img-top" alt="No Picture Uploaded yet!" height="250px">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <input name="image2" id="id_image2" onchange="readURL2(this);" type="file" accept="image/*"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12 col-md-6 mb-4">
+                                                <div class="card">
+                                                    <div style="max-height: 250px; min-height: 250px; min-width: 100%; border: none;">
+                                                        {% if user_img.image3 %}
+                                                        <img id="myimage3" src="{{user_img.image3.url}}" alt="Image 3" class="card-img-top" height="250px">
+                                                        {% else %}
+                                                        <img id="myimage3" src="#" class="card-img-top" alt="No Picture Uploaded yet!" height="250px">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <input name="image3" id="id_image3" onchange="readURL3(this);" type="file" accept="image/*"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12 col-md-6 mb-4">
+                                                <div class="card">
+                                                    <div style="max-height: 250px; min-height: 250px; min-width: 100%; border: none;">
+                                                        {% if user_img.image4 %}
+                                                        <img id="myimage4" src="{{user_img.image4.url}}" alt="Image 4" class="card-img-top" height="250px">
+                                                        {% else %}
+                                                        <img id="myimage4" src="#" class="card-img-top" alt="No Picture Uploaded yet!" height="250px">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <input name="image4" id="id_image4" onchange="readURL4(this);" type="file" accept="image/*"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12 col-md-6 mb-4">
+                                                <div class="card">
+                                                    <div style="max-height: 250px; min-height: 250px; min-width: 100%; border: none;">
+                                                        {% if user_img.image5 %}
+                                                        <img id="myimage5" src="{{user_img.image5.url}}" alt="Image 5" class="card-img-top" height="250px">
+                                                        {% else %}
+                                                        <img id="myimage5" src="#" class="card-img-top" alt="No Picture Uploaded yet!" height="250px">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <input name="image5" id="id_image5" onchange="readURL5(this);" type="file" accept="image/*"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12 col-md-6 mb-4">
+                                                <div class="card">
+                                                    <div style="max-height: 250px; min-height: 250px; min-width: 100%; border: none;">
+                                                        {% if user_img.image6 %}
+                                                        <img id="myimage6" src="{{user_img.image6.url}}" alt="Image 6" class="card-img-top" height="250px">
+                                                        {% else %}
+                                                        <img id="myimage6" src="#" class="card-img-top" alt="No Picture Uploaded yet!" height="250px">
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <input name="image6" id="id_image6" onchange="readURL6(this);" type="file" accept="image/*"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <button class="btn btn-primary" name="imageForm">Save Changes</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- </form>
+                        <form name="infoForm" action="" method="post">
+                        {% csrf_token %} -->
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Personal Information</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">First
+                                                Name:</label>
+                                            {{form.first_name}}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Middle
+                                                Name:</label>
+                                            {{form.middle_name}}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Last
+                                                Name:</label>
+                                            {{form.last_name}}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Age:</label>
+                                            {{form.age}}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Gender:</label>
+                                            {{form.gender}}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Birth
+                                                Date:</label>
+                                            {{form.date_of_birth}}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Course
+                                                :</label>
+                                            {{form.course}}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Block
+                                                :</label>
+                                            {{form.block}}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Year
+                                                :</label>
+                                            {{form.year}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Contact Information</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Address:</label>
+                                            {{form.address}}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Email:</label>
+                                            {{form.email}}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Contact
+                                                Number:</label>
+                                            {{form.contact_number}}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Guardian Name:</label>
+                                            {{form.guardian_fname}}
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Guardian Name Cellphone
+                                                Number:</label>
+                                            {{form.guardian_cp_number}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-4" name="infoForm">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script>
+    var formF = document.getElementById("id_date_of_birth");
+    formF.type = 'date';
+    formF.className = 'form-control';
+    var formF1 = document.getElementById("id_first_name");
+    formF1.className = 'form-control';
+    var formF2 = document.getElementById("id_middle_name");
+    formF2.className = 'form-control';
+    var formF3 = document.getElementById("id_last_name");
+    formF3.className = 'form-control';
+    var formF4 = document.getElementById("id_age");
+    formF4.className = 'form-control';
+    var formF5 = document.getElementById("id_gender");
+    formF5.className = 'form-control';
+    var formF6 = document.getElementById("id_address");
+    formF6.className = 'form-control';
+    var formF7 = document.getElementById("id_email");
+    formF7.className = 'form-control';
+    var formF8 = document.getElementById("id_contact_number");
+    formF8.className = 'form-control';
+    var formF9 = document.getElementById("id_guardian_fname");
+    formF9.className = 'form-control';
+    var formF10 = document.getElementById("id_guardian_cp_number");
+    formF10.className = 'form-control';
+    var formF11 = document.getElementById("id_block");
+    formF11.className = 'form-control';
+    var formF12 = document.getElementById("id_year");
+    formF12.className = 'form-control';
+    var formF13 = document.getElementById("id_course");
+    formF13.className = 'form-control';
+
+    function readURL1(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#myimage1').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL2(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#myimage2').attr('src', e.target.result);
+                console.log("asdasd");
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL3(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#myimage3').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL4(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#myimage4').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL5(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#myimage5').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURL6(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#myimage6').attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
+{% endblock %}

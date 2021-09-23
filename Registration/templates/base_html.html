@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %} {% endblock %}</title>
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <!-- <link href="{% static 'aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="{% static 'glightbox/css/glightbox.min.css' %}" rel="stylesheet"> -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  {% url 'change-password' as urlchangepassword %}
+  <header id="header" class="header fixed-top header-scrolled {% if request.path != urlchangepassword %}header-scrolled{% endif %}" >
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <a href="{% url 'home' %}" class="logo d-flex align-items-center">
+        <span class="mc-title-sm mc-title-md mc-title-lg">FRS PORTAL</span>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        {% if request.user.is_authenticated %}
+        <ul>
+          {% url 'home' as urlhome %}
+          {% url 'profile' as urlprofile %}
+          {% url 'edit_profile' as urleditprofile %}
+          {% url 'change-password' as urlchangepassword %}
+          <li><a class="nav-link {% if request.path == urlhome %}active{% endif %}" href="{% url 'home' %}">Home</a></li>
+          <li><a class="nav-link {% if request.path == urlprofile or request.path == urleditprofile %}active{% endif %}" href="{% url 'profile'  %}">Profile</a></li>
+          <li><a class="nav-link {% if request.path == urlchangepassword %}active{% endif %}" href="{% url 'change-password' %}">Change Password</a></li>
+          <li><a class="nav-link " href="{% url 'logout' %}">Log out</a></li>
+        </ul>
+        {% else %}
+        {% url 'login' as urlhome %}
+        {% url 'register' as urlregister %}
+        <ul>
+          <li><a class="nav-link {% if request.path == urlhome %}active{% endif %}" href="{% url 'login' %}">Login</a></li>
+          <li><a class="nav-link {% if request.path == urlregister %}active{% endif %}" href="{% url 'register' %}">Register</a></li>
+        </ul>
+        {% endif %}
+        <i class="bi bi-list mobile-nav-toggle"></i>
+
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+  {% block heroContent %}
+  
+  {% endblock %}
+  <main id="main">
+    {% block content %}
+
+    {% endblock %}
+  </main>
+  {% url 'confirmation' as urlconfirmation %}
+  {% url 'password_reset_done' as urlreset %}
+  {% url 'reset_password' as urlreset_password %}
+  {% url 'password_reset_complete' as urlpassword_reset_complete %}
+  <footer id="footer" class="footer {% if request.path == urlconfirmation or request.path == urlreset or request.path == urlreset_password or request.path == urlpassword_reset_complete%}fixed-bottom{% endif %}">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>UNITECH</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by UNITECH
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
+  <!-- <script src="{% static 'swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'purecounter/purecounter.js' %}"></script>
+  <script src="{% static 'isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'aos/aos.js' %}"></script> -->
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

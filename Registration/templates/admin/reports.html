@@ -1,0 +1,21 @@
+{% extends "basehtml.html" %}
+{% load static %}
+{% block title %}Report Generations{% endblock %}
+{% block heroContent %}
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero d-flex align-items-center" style="background: url({% static 'image/hero-bg.png' %});">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 d-flex flex-column justify-content-center">
+        <h1 data-aos="fade-up">FRS Record Generations </h1>
+        <h2 data-aos="fade-up">This system are created by Team UNITECH.</h2>
+      </div>
+      <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+        <img src="{% static 'image/hero-img.png' %}" class="img-fluid" alt="">
+
+      </div>
+    </div>
+  </div>
+</section><!-- End Hero -->
+{% endblock %}

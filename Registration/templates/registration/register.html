@@ -1,0 +1,79 @@
+{% extends "base_html.html" %}
+{% load static %}
+{% block title %}MC SYSTEM{% endblock %}
+
+{% block content %}
+<section id="about" class="about">
+
+  <div class="container mt-lg-5" data-aos="fade-up">
+    <div class="row gx-0">
+
+      <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+        <div class="content">
+          <h2>Create Your Account</h2>
+          <div class="col-lg-8 mt-4">
+            {% for message in messages %}
+            <p style="color:red; margin: 0px;">
+              {{message}}
+            </p>
+            {% endfor %}
+            <form action="" method="post" id="form-reg">
+              {% csrf_token %}
+
+              <div class="input-group mb-0">
+                <input type="email" name="email" class="form-control" placeholder="Email Address"
+                  aria-describedby="basic-addon2" pattern="^[a-zA-Z0-9]+@mabinicolleges\.edu.ph$" required>
+                <span class="input-group-text" id="basic-addon2"> </span>
+              </div>
+              <div class="mb-3">
+                <small id="emailHelp" class="form-text text-muted">Note: Only institutional Gmail account is accepted.</small>
+              </div>
+              <div class="input-group mb-0">
+                <input type="text" name="username" minlength="6" maxlength="15" class="form-control"
+                  placeholder="ID number as Username" aria-describedby="basic-addon2" pattern="[0-9]+" required>
+                <span class="input-group-text" id="basic-addon2"> </span>
+              </div>
+              <div class="mb-3">
+                <small id="usernameHelp" class="form-text text-muted">Note:Use your ID Number.</small>
+              </div>
+              <div class="input-group mb-3">
+                <input type="password" name="password1" class="form-control" placeholder="Password"
+                  aria-describedby="basic-addon2" required>
+                <span class="input-group-text" id="basic-addon2"> </span>
+              </div>
+              <div class="input-group mb-3">
+                <input type="password" name="password2" class="form-control" placeholder="Re-type Password"
+                  aria-describedby="basic-addon2" required>
+                <span class="input-group-text" id="basic-addon2"> </span>
+              </div>
+             
+              <div class="input-group mb-3">
+                <p>I have read the Mabini Colleges Inc.'s Privacy Notice for Students.</p>
+              </div>
+              <div class=" text-center text-lg-start mb-4">
+                <button type="submit" id="btn-submit" style="border: none; margin: 0px;"
+                  class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
+                  <span>Sign Up</span>
+                  <i class="bi bi-arrow-right"></i>
+                </button>
+              </div>
+              
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+        <img src="{% static 'image/about.jpg' %}" class="img-fluid" alt="">
+      </div>
+    </div>
+  </div>
+</section><!-- End About Section -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script>
+  $(document).ready(function(){
+  $("#form-reg").submit(function(){
+    document.getElementById("btn-submit").disabled = true;
+  });
+});
+</script>
+{% endblock %}

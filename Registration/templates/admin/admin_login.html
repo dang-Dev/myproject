@@ -1,0 +1,49 @@
+{% extends "basehtml.html" %}
+{% load static %}
+{% block title %}MC-CCS ADMIN{% endblock %}
+{% block heroContent %}
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero d-flex align-items-center" style="background: url({% static 'image/hero-bg.png' %});">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 d-flex flex-column justify-content-center">
+        <h1 data-aos="fade-up">FRS Login </h1>
+        <h2 data-aos="fade-up">This system are created by Team UNITECH.</h2>
+        <div data-aos="fade-up">
+          <div class="col-lg-8 mt-4">
+            <form action="" method="post">
+              {% csrf_token %}
+              <div class="input-group mb-3">
+                <input type="text" name="username" class="form-control" placeholder="Username" aria-describedby="basic-addon2" required>
+                <span class="input-group-text" id="basic-addon2"> </span>
+              </div>
+              <div class="input-group mb-3">
+                <input type="password" name="password" class="form-control" placeholder="Password" aria-describedby="basic-addon2" required>
+                <span class="input-group-text" id="basic-addon2"> </span>
+              </div>
+              <p>I have read the Mabini Colleges Inc.'s Privacy Notice for administrator.</p>
+              {% for message in messages %}
+            <p style="color:red; margin: 0px;">
+              {{message}}
+            </p>
+            {% endfor %}
+              <div class=" text-center text-lg-start mb-4">
+                <button type="submit" style="border: none; margin: 0px;"
+                  class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                  <span>Sign In</span>
+                  <i class="bi bi-arrow-right"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+        <img src="{% static 'image/hero-img.png' %}" class="img-fluid" alt="">
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

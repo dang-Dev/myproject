@@ -1,0 +1,164 @@
+{% extends "base_html.html" %}
+{% load static %}
+{% block title %}MC SYSTEM{% endblock %}
+
+{% block content %}
+<section class="breadcrumbs">
+    <div class="container">
+        <ol>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li>Profile</li>
+        </ol>
+        <h2>Profile</h2>
+
+    </div>
+</section>
+<section id="blog" class="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{message}}
+                  </div>
+                  {% endfor %}
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-pills card-header-pills">
+                          <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'profile' %}">Info</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link " href="{% url 'edit_profile' %}" >Update Info</a>
+                          </li>
+                        </ul>
+                      </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Face Recognition System Data</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-sm-12 col-md-6 mb-4">
+                                                <div class="card">
+                                                    <div style="max-height: 280px; min-height: 280px; min-width: 100%; border: none;">
+                                                        {% if user_img.image1 %}
+                                                        <img src="{{user_img.image1.url}}" alt="Image 1" class="card-img-top" height="280px">
+                                                        {% else %}
+                                                        <span style=" font-style: italic; color:red">No Picture Uploaded yet!</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12 col-md-6 mb-4">
+                                                <div class="card">
+                                                    <div style="max-height: 280px; min-height: 280px; min-width: 100%; border: none;">
+                                                        {% if user_img.image2 %}
+                                                        <img src="{{user_img.image2.url}}" alt="Image 2" class="card-img-top" height="280px">
+                                                        {% else %}
+                                                        <span style=" font-style: italic; color:red">No Picture Uploaded yet!</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12 col-md-6 mb-4">
+                                                <div class="card">
+                                                    <div style="max-height: 280px; min-height: 280px; min-width: 100%; border: none;">
+                                                        {% if user_img.image3 %}
+                                                        <img src="{{user_img.image3.url}}" alt="Image 3" class="card-img-top" height="280px">
+                                                        {% else %}
+                                                        <span style=" font-style: italic; color:red">No Picture Uploaded yet!</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12 col-md-6 mb-4">
+                                                <div class="card">
+                                                    <div style="max-height: 280px; min-height: 280px; min-width: 100%; border: none;">
+                                                        {% if user_img.image4 %}
+                                                        <img src="{{user_img.image4.url}}" alt="Image 4" class="card-img-top" height="280px">
+                                                        {% else %}
+                                                        <span style=" font-style: italic; color:red">No Picture Uploaded yet!</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12 col-md-6 mb-4">
+                                                <div class="card">
+                                                    <div style="max-height: 280px; min-height: 280px; min-width: 100%; border: none;">
+                                                        {% if user_img.image5 %}
+                                                        <img src="{{user_img.image5.url}}" alt="Image 5" class="card-img-top" height="280px">
+                                                        {% else %}
+                                                        <span style=" font-style: italic; color:red">No Picture Uploaded yet!</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12 col-md-6 mb-4">
+                                                <div class="card">
+                                                    <div style="max-height: 280px; min-height: 280px; min-width: 100%; border: none;">
+                                                        {% if user_img.image6 %}
+                                                        <img src="{{user_img.image6.url}}" alt="Image 6" class="card-img-top" height="280px">
+                                                        {% else %}
+                                                        <span style=" font-style: italic; color:red">No Picture Uploaded yet!</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Personal Information</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="fs-5">First Name: {{user.first_name}}</p>
+                                        <p class="fs-5">Middle Name: {{user.middle_name}}</p>
+                                        <p class="fs-5">Last Name: {{user.last_name}}</p>
+                                        <p class="fs-5">Age: {{user.age}}</p>
+                                        <p class="fs-5">Gender: {{user.gender}}</p>
+                                        <p class="fs-5">Birth Date: {{user.date_of_birth}}</p>
+                                        <p class="fs-5">Course: {{user.course}}</p>
+                                        <p class="fs-5">Block: {{user.block}}</p>
+                                        <p class="fs-5">Year: {{user.year}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Contact Information</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="fs-5">Address: {{user.address}}</p>
+                                        <p class="fs-5">Email: {{user.email}}</p>
+                                        <p class="fs-5">Contact Number: {{user.contact_number}}</p>
+                                        <p class="fs-5">Guardian Name: {{user.guardian_fname}}</p>
+                                        <p class="fs-5">Guardian Cellphone Number: {{user.guardian_cp_number}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var form_fields = document.getElementsByTagName('input');
+    
+    // form_fields[2].className += 'form-control';
+    // form_fields[3].className += 'form-control';
+</script>
+{% endblock %}

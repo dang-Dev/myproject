@@ -1,0 +1,201 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <title>QR Code Scanner</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="text-center text-primary text-uppercase">FRS QR Code Scanner</h1>
+    <div class="row mt-4">
+      <div class="col-6">
+        <div id="qr-reader" style="width:100%"></div>
+        <div id="qr-reader-results"></div>
+      </div>
+      <div class="col-6">
+        <div class="card">
+          <div class="card-header">
+
+          </div>
+          <div class="card-body">
+            <h4 class="text-center">MC-CCS Student Information</h4>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="id_fname" class="form-label">First Name:</label>
+                <input type="text" class="form-control" id="id_fname">
+              </div>
+              <div class="col-md-6">
+                <label for="id_mname" class="form-label">Middle Name:</label>
+                <input type="text" class="form-control" id="id_mname">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="id_lname" class="form-label">Last Name:</label>
+                <input type="text" class="form-control" id="id_lname">
+              </div>
+              <div class="col-md-6">
+                <label for="id_age" class="form-label">Age:</label>
+                <input type="text" class="form-control" id="id_age">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label for="id_address" class="form-label">Address:</label>
+                <input type="text" class="form-control" id="id_address">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="id_gender" class="form-label">Gender:</label>
+                <input type="text" class="form-control" id="id_gender">
+              </div>
+              <div class="col-md-6">
+                <label for="id_course" class="form-label">Course:</label>
+                <input type="text" class="form-control" id="id_course">
+              </div>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-6">
+                <label for="id_block" class="form-label">Block:</label>
+                <input type="text" class="form-control" id="id_block">
+              </div>
+              <div class="col-md-6">
+                <label for="id_yearlvl" class="form-label">Year Level:</label>
+                <input type="text" class="form-control" id="id_yearlvl">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 text-center">
+                <button class="btn btn-primary" type="button" disabled id="id_process" style="display: none;">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Processing...
+                </button>
+                <button type="button" class="btn btn-success" id="id_done" style="display: none;">
+                  <i class="bi bi-check-circle"></i>
+                  Done
+                </button>
+                <button type="button" class="btn btn-info" id="id_wait" >
+                  <i class="bi bi-info-circle"></i>
+                  Waiting QR Code To be Scan
+                </button>
+                <button type="button" class="btn btn-danger" id="id_error1" style="display: none;" >
+                  <i class="bi bi-exclamation-triangle"></i>
+                  Please Update your Profile
+                </button>
+                <button type="button" class="btn btn-warning" id="id_error3" style="display: none;" >
+                  <i class="bi bi-exclamation-triangle"></i>
+                  Entrance First Before you Exit!
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
+  <script src="{% static 'js/html5-qrcode.min.js' %}"></script>
+  <script>
+    function docReady(fn) {
+      // see if DOM is already available
+      if (document.readyState === "complete"
+        || document.readyState === "interactive") {
+        // call on next available tick
+        setTimeout(fn, 1);
+      } else {
+        document.addEventListener("DOMContentLoaded", fn);
+      }
+    }
+
+    docReady(function () {
+      var resultContainer = document.getElementById('qr-reader-results');
+      var lastResult, countResults = 0;
+      function onScanSuccess(decodedText, decodedResult) {
+        if (decodedText !== lastResult) {
+          ++countResults;
+          lastResult = decodedText;
+          // Handle on success condition with the decoded message.
+          console.log(`Scan result ${decodedText}`, decodedResult);
+          var xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+              document.getElementById('id_stop').click();
+              console.log(this.responseText);
+              const info = this.responseText;
+              const obj = JSON.parse(info);
+              document.getElementById("id_fname").value = obj.fname;
+              document.getElementById("id_mname").value = obj.mname;
+              document.getElementById("id_lname").value = obj.lname;
+              document.getElementById("id_age").value = obj.age;
+              document.getElementById("id_address").value = obj.address;
+              document.getElementById("id_gender").value = obj.gender;
+              document.getElementById("id_course").value = obj.course;
+              document.getElementById("id_block").value = obj.block;
+              document.getElementById("id_yearlvl").value = obj.year;
+
+              var xhttp = new XMLHttpRequest();
+              xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                  console.log(this.responseText);
+                  if (this.responseText == "error1=guardian_number_missing"){
+                    document.getElementById("id_error1").style.display = "inline-block";
+                    document.getElementById("id_process").style.display = "none";
+                  }else if(this.responseText == "ok"){
+                    document.getElementById("id_process").style.display = "none";
+                    document.getElementById("id_done").style.display = "inline-block";
+                  }else if(this.responseText == "error3=no_entrance"){
+                    document.getElementById("id_process").style.display = "none";
+                    document.getElementById("id_error3").style.display = "inline-block";
+                    setTimeout(function(){console.log("asdas");}, 5000);
+                  }
+                  setTimeout(function(){ 
+                      document.getElementById("id_fname").value = "";
+                      document.getElementById("id_mname").value = "";
+                      document.getElementById("id_lname").value = "";
+                      document.getElementById("id_age").value = "";
+                      document.getElementById("id_address").value = "";
+                      document.getElementById("id_gender").value = "";
+                      document.getElementById("id_course").value = "";
+                      document.getElementById("id_block").value = "";
+                      document.getElementById("id_yearlvl").value = "";
+                      document.getElementById("id_wait").style.display = "inline-block";
+                      document.getElementById("id_done").style.display = "none";
+                      document.getElementById("id_error1").style.display = "none";
+                      document.getElementById("id_error3").style.display = "none";
+                      document.getElementById('id_start').click();
+                      lastResult = 0;
+                   }, 3000);
+                }
+              };
+              xhttp.open("GET", "http://"+window.location.host + "/sendSMS/"+ decodedText, true);
+              xhttp.onloadstart = function(){
+                document.getElementById("id_wait").style.display = "none";
+                document.getElementById("id_process").style.display = "inline-block";
+              }
+              xhttp.send();
+            }
+          };
+          xhttp.open("GET", "http://"+window.location.host + "/qwerty/"+ decodedText, true);
+          xhttp.send();
+          // document.getElementById('id_stop').click();
+        }
+      }
+
+      var html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-reader", { fps: 10, qrbox: 250 });
+      html5QrcodeScanner.render(onScanSuccess);
+    });
+  </script>
+</body>
+
+</html>
